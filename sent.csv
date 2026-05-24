@@ -1,0 +1,26 @@
+import csv
+def load_sent_emails():
+    sent_emails = set()
+    with open('sent.csv', 'r') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            sent_emails.add(row['Email'])
+    return sent_emails
+
+    def save_sent_email(company, email):
+        with open('sent.csv', 'a', newline='') as file:
+            wiriter = csv.DictWriter(file, fieldnames=fieldnames)
+            wiriter.writerow({'Company': company, 'Email': email})
+
+Sent_emails = load_sent_emails()
+with open('companies.csv', 'r') as file:
+    reader = csv.DictReader(file)
+    for row in reader:
+        company = row['Company']
+        email = row['Email']
+
+        if email not in sent_emails:
+            print(f"Sending email to {email} for {company}")
+            save_sent_email(company, email)
+        else:
+            print(f"Email to {email} for {company} has already been sent.") 
