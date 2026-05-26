@@ -1,0 +1,47 @@
+import csv
+
+
+def read_companies():
+    company_collection = []
+
+    with open('companies.csv', mode='r', newline='', encoding='utf-8') as file:
+        reader = csv.DictReader(file)
+
+        for row in reader:
+            company = row.get('Company') or ''
+            mail = row.get('Email') or ''
+            position = row.get('Position') or ''
+
+            company_collection.append({
+                'Company': company,
+                'Email': mail,
+                'Position': position
+            })
+
+    return company_collection
+
+
+def send_email(company_collection):
+    email_messages = []
+
+    for company in company_collection:
+        company_name = company.get('Company', '')
+        position = company.get('Position', '')
+
+        email_content = (
+            f"Dear {company_name},\n\n"
+            f"I am writing to express my interest in the {position} position at your company. "
+            "I believe my skills and experience make me a strong candidate for this role.\n\n"
+            "Thank you for considering my application. I look forward to the opportunity to discuss "
+            "how I can contribute to your team.\n\n"
+            "Best regards,\n[Your Name]"
+        )
+
+        email_messages.append(email_content)
+
+        print(email_content)
+
+
+company_collection = read_companies()
+
+print(send_email(company_collection))
