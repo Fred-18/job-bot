@@ -1,6 +1,7 @@
 import csv
 def load_sent_emails():
     sent_emails = set()
+
     with open('sent.csv', 'r') as file:
         reader = csv.DictReader(file)
         for row in reader:
