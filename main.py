@@ -1,6 +1,8 @@
 from smtp_service import SMTPService
+ 
 
 SMTP_SERVER = SMTP_PORT = EMAIL_USERNAME = EMAIL_PASSWORD = None
+
 with open('.env') as f:
     for line in f:
         if line.startswith('SMTP_SERVER'):
@@ -12,6 +14,7 @@ with open('.env') as f:
         elif line.startswith('EMAIL_PASSWORD'):
             EMAIL_PASSWORD = line.split('=')[1].strip()
 
-smtp = SMTPService(SMTP_SERVER, SMTP_PORT, EMAIL_USERNAME, EMAIL_PASSWORD)
-print(SMTP_SERVER, SMTP_PORT, EMAIL_USERNAME, EMAIL_PASSWORD)
-smtp.send_email("frednobre18@gmail.com", "Test Email", "This is a test email from the SMTP service.")
+smtp = SMTPService(SMTP_SERVER, SMTP_PORT, EMAIL_USERNAME, EMAIL_PASSWORD,)
+smtp.send_email("frednobre18@gmail.com", "Test Email", "This is a test email from the SMTP service(je test mon bot c'est Fred tkt).")
+mail_counter()
+
