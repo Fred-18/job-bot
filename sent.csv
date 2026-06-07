@@ -1,27 +1,48 @@
 import csv
+
+MAX_EMAILS = 10
+
+
 def load_sent_emails():
     sent_emails = set()
 
-    with open('sent.csv', 'r') as file:
+    with open("sent.csv", "r", newline="", encoding="utf-8") as file:
         reader = csv.DictReader(file)
+
         for row in reader:
-            sent_emails.add(row['Email'])
+            sent_emails.add(row["Email"])
+
     return sent_emails
 
-    def save_sent_email(company, email):
-        with open('sent.csv', 'a', newline='') as file:
-            wiriter = csv.DictWriter(file, fieldnames=fieldnames)
-            wiriter.writerow({'Company': company, 'Email': email})
 
-Sent_emails = load_sent_emails()
-with open('companies.csv', 'r') as file:
+def save_sent_email(company, email):
+    fieldnames = ["Company", "Email"]
+
+    with open("sent.csv", "a", newline="", encoding="utf-8") as file:
+        writer = csv.DictWriter(file, fieldnames=fieldnames)
+        writer.writerow({"Company": company, "Email": email})
+
+
+sent_emails = load_sent_emails()
+mail_count = 0
+
+with open("companies.csv", "r", newline="", encoding="utf-8") as file:
     reader = csv.DictReader(file)
-    for row in reader:
-        company = row['Company']
-        email = row['Email']
 
-        if email not in sent_emails:
-            print(f"Sending email to {email} for {company}")
-            save_sent_email(company, email)
-        else:
-            print(f"Email to {email} for {company} has already been sent.") 
+    for row in reader:
+        company = row["Company"]
+        email = row["Email"]
+
+        if email in sent_emails:
+            print(f"Email to {email} for {company} has already been sent.")
+            continue
+
+        if mail_count >= MAX_EMAILS:
+            print("Reached daily limit of 10 emails. Stopping.")
+            break
+
+        print(f"Sending email to {email} for {company}")
+
+        save_sent_email(company, email)
+        sent_emails.add(email)
+        mail_count += 1
