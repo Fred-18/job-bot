@@ -1,7 +1,0 @@
-Teams,Name,LastName,Role,Number,Status
-
-Molosses,Fred,Nobre,Linebacker,18,International=True
-Molosses,John,Doe,Quarterback,12,International=False
-Molosses,Jane,Smith,Wide Receiver,88,International=True
-Molosses,Emily,Jones,Running Back,22,International=False
-Molosses,Michael,Brown,Defensive End,90,International=True
